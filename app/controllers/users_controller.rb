@@ -3,8 +3,9 @@ class UsersController < ApplicationController
     end
   
     def create
-      user = User.new(user_params)
-      if user.save
+        user = User.authenticate_with_credentials(params[:email], params[:password])
+      #if user.save
+      if user
         session[:user_id] = user.id
         redirect_to '/'
       else
